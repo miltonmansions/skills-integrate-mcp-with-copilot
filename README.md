@@ -1,5 +1,7 @@
 # Integrate MCP with Copilot
 
+<!-- Mona check triggered: 2025-06-03 -->
+
 <img src="https://octodex.github.com/images/Professortocat_v2.png" align="right" height="200px" />
 
 Hey **miltonmansions**!
