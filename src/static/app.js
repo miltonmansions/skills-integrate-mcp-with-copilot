@@ -155,6 +155,57 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Animate git branch lines
+  function animateBranches() {
+    const t = Date.now() / 2000;
+    const svg = document.getElementById("git-branches-svg");
+    if (!svg) return;
+    // Animate each branch with a subtle wave
+    const paths = [
+      {
+        el: document.getElementById("branch1"),
+        base: [100, 0, 200, 200, 300, 400, 400, 600, 500, 1080],
+        amp: 40,
+        freq: 1.2,
+        phase: 0
+      },
+      {
+        el: document.getElementById("branch2"),
+        base: [400, 0, 500, 300, 600, 600, 700, 900, 800, 1080],
+        amp: 30,
+        freq: 1.5,
+        phase: 1
+      },
+      {
+        el: document.getElementById("branch3"),
+        base: [900, 0, 1000, 250, 1100, 500, 1200, 750, 1300, 1080],
+        amp: 25,
+        freq: 1.8,
+        phase: 2
+      },
+      {
+        el: document.getElementById("branch4"),
+        base: [1500, 0, 1400, 400, 1300, 800, 1200, 1000, 1100, 1080],
+        amp: 35,
+        freq: 1.1,
+        phase: 3
+      }
+    ];
+    for (const p of paths) {
+      if (!p.el) continue;
+      // Animate control points
+      const wave = (i) => Math.sin(t * p.freq + p.phase + i) * p.amp;
+      const d = `M${p.base[0]} ${p.base[1]}
+        Q${p.base[2]} ${p.base[3] + wave(1)},
+         ${p.base[4]} ${p.base[5] + wave(2)}
+        Q${p.base[6]} ${p.base[7] + wave(3)},
+         ${p.base[8]} ${p.base[9]}`;
+      p.el.setAttribute("d", d);
+    }
+    requestAnimationFrame(animateBranches);
+  }
+  animateBranches();
+
   // Initialize app
   fetchActivities();
 });
